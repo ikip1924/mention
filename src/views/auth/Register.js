@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 function Register() {
-const [name, setName] = useState('')
-const [email, setEmail] = useState('')
-const [password, setPassword] = useState('')
-const [password_confirmation, setPasswordConfirmation] = useState('')
-const [errors, setErrors] = useState([])
-const [message, setMessage] = useState('')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [password_confirmation, setPasswordConfirmation] = useState('')
+    const [errors, setErrors] = useState([])
+    const [message, setMessage] = useState('')    
+    const record = { name, email, password, password_confirmation }
     
-const record =  { name, email, password, password_confirmation }
-const store = async (e) => {
+    const store = async (e) => {
     e.preventDefault();
    try {
-        let response = await axios.post('http://127.0.0.1:8000/api/register', record)
-    setName = ('')
-    setEmail = ('')
-    setPassword = ('')
-    setPasswordConfirmation = ('')
+    let response = await axios.post('register', record)
+    setName ('')
+    setEmail ('')
+    setPassword ('')
+    setPasswordConfirmation ('')
    } catch (e) {
        setErrors(e.response.data.errors);
        setMessage(e.response.data.message);

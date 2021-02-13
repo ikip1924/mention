@@ -1,7 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { authenticated } from '../store';
 
 function Navbar() {
+    const  auth = useRecoilValue(authenticated)
     return (
                   <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light bg-white border-bottom py-3">
@@ -18,16 +21,32 @@ function Navbar() {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/about">About</NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
+                            </li>
                         </ul>
                         
-                        <ul className="navbar-nav mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <NavLink  className="nav-link"  to="/login">Login</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink className="nav-link" to="/register">Register</NavLink>
-                            </li>
-                        </ul>
+                        {
+                            auth.check ?
+                                <ul className="navbar-nav mb-2 mb-lg-0">
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/">{auth.user.name}</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/">Logout</NavLink>
+                                    </li>        
+                                </ul>
+                                : 
+                                <ul className="navbar-nav mb-2 mb-lg-0">
+                                    <li className="nav-item">
+                                        <NavLink  className="nav-link"  to="/login">Login</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink className="nav-link" to="/register">Register</NavLink>
+                                    </li>        
+                                </ul>
+                        
+                        }
                     </div>
                 </div>
             </nav>
