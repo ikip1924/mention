@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'   
-import { useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { authenticated } from '../store'
 
 function Guest({ children }) {
     const redirect = useHistory()
-    const [auth, setAuth] = useRecoilState(authenticated)
+    const auth = useRecoilValue(authenticated)
+
 
     useEffect(() => {
         if (auth.check) {
             redirect.push('/')
         }
 
-    }, [auth])
+    }, [auth.check, redirect])
     return children
 }
 

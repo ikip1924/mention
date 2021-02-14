@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'   
-import { useRecoilState } from 'recoil'
+import {  useRecoilValue } from 'recoil'
 import { authenticated } from '../store'
 
 function Authenticated({ children }) {
     const redirect = useHistory()
-    const [auth, setAuth] = useRecoilState(authenticated)
+    const auth = useRecoilValue(authenticated)
 
     useEffect(() => {
         if (!auth.check) {
             redirect.push('/login')
         }
 
-    }, [auth])
+    }, [auth.check, redirect])
     return children
 }
 

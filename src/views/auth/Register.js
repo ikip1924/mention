@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import {  } from 'react-router-dom/cjs/react-router-dom.min'
+import { useHistory } from 'react-router-dom'
 function Register() {
+    const redirect = useHistory()
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -10,13 +13,14 @@ function Register() {
     const record = { name, email, password, password_confirmation }
     
     const store = async (e) => {
-    e.preventDefault();
-   try {
-    let response = await axios.post('register', record)
-    setName ('')
-    setEmail ('')
-    setPassword ('')
-    setPasswordConfirmation ('')
+        e.preventDefault();
+        try {       
+            await axios.post('register', record)
+            setName('')
+            setEmail('')
+            setPassword('')
+            setPasswordConfirmation('')
+            redirect.push('login')
    } catch (e) {
        setErrors(e.response.data.errors);
        setMessage(e.response.data.message);
